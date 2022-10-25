@@ -12,8 +12,41 @@
     <script defer src="03-form.js"></script>
   </head>
   <body class="bg-dark">
-    <form class="bg-light border rounded w-50 mx-auto mt-5 p-3">
+    <form id="form" action="03-form.html" method="GET" class="bg-light border rounded w-50 mx-auto mt-5 p-3">
       <h1 class="mt-2 mb-4">Contact Form</h1>
-    </form>
+
+      <div class="form-group">
+        <label >Name *</label>
+        <input type="text" required id="name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      </div>
+    <div class="form-group mt-4">
+      <label >Email*</label>
+      <input type="email" required class="form-control" id="email" aria-describedby="emailHelp" >
+      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+    </div>
+    <div class="form-group mt-4">
+      <label >Submit your message</label>
+      <textarea class="form-control" id="message" rows="3"></textarea>
+    </div>
+    <div class="form-check mt-2 mb-4">
+      <input type="checkbox" class="form-check-input" id="newsletter">
+      <label class="form-check-label" for="exampleCheck1">Sign up for the newsletter!</label>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="d-grid gap-2">
+          <button type="submit"  class="btn btn-primary" type="button">Submit</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-grid gap-2">
+          <button type="reset" class="btn btn-secondary" type="button">Reset</button>
+        </div>
+      </div>
+    </div>
+    
+  </form>
   </body>
+
 </html>

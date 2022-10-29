@@ -1,5 +1,5 @@
-const http = require('http');
-const port = process.env.PORT || 5000;
+const http = require("http");
+const port = process.env.PORT || 5001;
 
 // http://localhost:5000/welcome should return a status code 200 with a welcome message of your choice in html format
 
@@ -15,17 +15,17 @@ const port = process.env.PORT || 5000;
 
 const server = http.createServer((req, res) => {
   const routes = [
-    'welcome',
-    'redirect',
-    'redirected',
-    'cache',
-    'cookie',
-    'check-cookies',
-    'other',
+    "welcome",
+    "redirect",
+    "redirected",
+    "cache",
+    "cookie",
+    "check-cookies",
+    "other",
   ];
 
   let getRoutes = () => {
-    let result = '';
+    let result = "";
 
     routes.forEach(
       (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`)
@@ -34,12 +34,26 @@ const server = http.createServer((req, res) => {
     return result;
   };
 
-  if (req.url === '/') {
+  if (req.url === "/") {
     let routeResults = getRoutes();
-
-    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h1>Exercise 01</h1>`);
     res.write(`<ul> ${routeResults} </ul>`);
+    res.end();
+  } else if (req.url === "/welcome") {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write(`<h1>Welcome</h1>`);
+    res.end();
+  } else if (req.url === "/redirect") {
+    console.log(req);
+    res.writeHead(302, {
+      Location: "/redirected",
+    });
+    // res.write(`<h1>redirect</h1>`);
+    res.end();
+  } else if (req.url === "/redirected") {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write(`<h1>Welcome to redirected page</h1>`);
     res.end();
   }
 

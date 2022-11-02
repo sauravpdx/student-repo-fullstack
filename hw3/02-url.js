@@ -12,36 +12,27 @@ const server = http.createServer((req, res) => {
   // use the URL interface to work with URLs
   // source: https://developer.mozilla.org/en-US/docs/Web/API/URL
   let url = new URL(req.url, `http://${req.headers.host}`);
-
   let getRoutes = () => {
     let result = "";
-
     routes.forEach(
       (elem) => (result += `<li><a href="${elem}">${elem}</a></li>`)
     );
-
     return result;
   };
 
   if (req.url === "/") {
     let routeResults = getRoutes();
-    console.log(req.url);
-
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write(`<h1>Exercise 02</h1>`);
-
     res.write(`<ul> ${routeResults} </ul>`);
-  } else if (req.url === "/attributes") {
-    console.log(req);
-    res.writeHead(200, { "Content-Type": "te`xt/html" });
-    res.write(`<h1>ok</h1>`);
   }
 
-  console.log(url.searchParams);
-
-  // Add your code here
-  // url.searchParams.forEach((e,i)=>{console.log(e +"   "+ i)})
-
+  res.write(`<style>table, th, td {border: 1px solid black;}</style>`);
+  res.write(` <table> `);
+  url.searchParams.forEach((key, value) => {
+    res.write(` <tr> <td> ${key}</td> <td> ${value}</td> </tr> `);
+  });
+  res.write(` </table> `);
   res.end();
 });
 

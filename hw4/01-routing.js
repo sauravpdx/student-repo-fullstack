@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = process.env.PORT || 5001;
 
@@ -13,16 +13,16 @@ const port = process.env.PORT || 5001;
 // For other routes, such as http://localhost:5001/other, this exercise should return a status code 404 with '404 - page not found' in html format
 
 const routes = [
-  'welcome',
-  'redirect',
-  'redirected',
-  'cache',
-  'cookie',
-  'other',
+  "welcome",
+  "redirect",
+  "redirected",
+  "cache",
+  "cookie",
+  "other",
 ];
 
 let getRoutes = () => {
-  let result = '';
+  let result = "";
 
   routes.forEach(
     (elem) => (result += `<li><a href="/${elem}">${elem}</a></li>`)
@@ -31,17 +31,48 @@ let getRoutes = () => {
   return result;
 };
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   let routeResults = getRoutes();
 
-  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.writeHead(200, { "Content-Type": "text/html" });
   res.write(`<h1>Exercise 04</h1>`);
   res.write(`<ul> ${routeResults} </ul>`);
   res.end();
 });
 
-app.get('/welcome', (req, res) => {});
+app.get("/welcome", (req, res) => {
+  res.writeHead(200, { "Content-Type": "text/html" });
+  res.write(`<h1>Welcome to Full stack HW 4</h1>`);
+  res.end();
+});
 
+app.get("/redirect", (req, res) => {
+  res.redirect(302, "/redirected");
+});
+app.get("/redirected", (req, res) => {
+  res.write(`<h1>Redirected from the previous page</h1>`);
+  res.end();
+});
+
+app.get("/cache", (req, res) => {
+  res.set({
+    "content-type": "text/html",
+    "Cache-control": "max-age = 86400",
+  });
+  res.write(`<h1>this resource was cached</h1>`);
+  res.end();
+});
+app.get("/cookie", (req, res) => {
+  res.set({ "Content-Type": "text/plain" });
+  res.cookie("hello", "world");
+  res.send("cookies... yummm");
+});
+
+app.get("*", (req, res) => {
+  res.set({ "Content-Type": "text/html" });
+  res.write(`<h1>404 - page not found</h1>`);
+  res.end();
+});
 // Add your code here
 
 app.listen(port, () => {
